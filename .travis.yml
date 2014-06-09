@@ -2,7 +2,6 @@ language: python
 python:
   # - "2.6"
   - "2.7"
-  - "pypy"
 services: mysql
 env:
   # - DJANGO=1.2.7
@@ -12,6 +11,8 @@ install:
   - pip install -q Django==$DJANGO --use-mirrors
   - pip install pep8 --use-mirrors
   - pip install mysql-python --use-mirrors
+  - pip install Pillow
+  #  - apt-get install python-imaging
   # - pip install https://github.com/dcramer/pyflakes/tarball/master
   # - pip install -q -e . --use-mirrors
 before_script:
