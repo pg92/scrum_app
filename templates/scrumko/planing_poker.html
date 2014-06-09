@@ -1,0 +1,33 @@
+{% extends 'scrumko/main.html' %}
+{% load static %}
+
+{% block body_block %}
+
+		<script type="text/javascript" src="{% static  'javascript/poker_ajax.js' %}" ></script>
+		
+		<div>
+			<h1>Planning poker</h1>
+
+			<div class="storydes">
+				<h2 id="storyname">{{story_name}}</h2>
+		
+				<p id="storytext">{{story_text}}</p>
+				<p id="storytest">{{story_test}}</p>
+			
+			</div>
+			
+			<br/>
+			<div id="table">
+			
+			</div>
+			
+			<br/>
+			<div id="buttons">
+			
+			</div>
+			<img src="{% static  'images/loader2.gif' %}" style="display: none;" id="imgProgress" />
+			
+				
+			
+       </div>
+   {% endblock %}

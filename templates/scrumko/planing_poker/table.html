@@ -1,0 +1,50 @@
+
+<div>
+	<table class="planingtable">
+	   			
+		<tr>
+			<td width="10%">
+				Index
+			</td>
+			
+			{% for user in users_value %}
+			<td width="{{cellwidth}}%">
+				{{ user }}
+			</td>
+			{% endfor %}
+			
+			<td width="15%">
+				Average
+			</td>
+		</tr>
+		
+		{% for row in estimate_value %}
+		
+			{% if row|length > 0 %} 
+			<tr>
+											
+				{% for cell in row %}
+				<td>
+					{{cell}}
+					
+				</td>
+				{% endfor %}
+								
+					
+			</tr>
+			{% endif %}
+			
+			
+	
+		{% endfor %}
+		
+		</table>
+		
+			{% if last_round %}
+			
+					<p style="margin-left: 50px;">Send your estimate to see results for last round.</p>
+				
+			
+			{% endif %}
+	
+</div>

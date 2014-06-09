@@ -1,0 +1,204 @@
+{% extends 'scrumko/main.html' %}
+{% load static %}
+
+{% block body_block %}
+
+	<script type="text/javascript" src="{% static  'javascript/sprintbacklog.js' %}" ></script>
+	<script>
+		$(function() {
+			$( "#id_day" ).datepicker();
+		});
+	</script>
+	<h1> My tasks</h1>   
+	
+		{% if update %}
+			<div class="succes_hold">
+				<div class="succes">
+					Work time was <strong>successfully  </strong>updated.
+				</div>
+			</div>
+			<br/>
+		{% endif %}
+		{% if change %}
+		<div class="time_change">
+				Add working time for {{ currenttask.text }}: </div><br/>
+					<form id="time_form" method="post" action="/scrumko/mytask/"
+					enctype="multipart/form-data">
+					{% csrf_token %}
+					{% for hidden in wtime_form.hidden_fields %}
+						{{ hidden }}
+					{% endfor %}
+
+					{% for field in wtime_form.visible_fields %}
+					<div>
+						<div class="fieldwrapper">
+							{{ field.label_tag }}
+						</div>
+						
+						<div class="fieldwrapper">
+							{{ field }}
+						</div>
+						
+						<div class="errorwrapper">
+							{% if not insprint and forloop.counter = 1 %}
+								{{ error_sprint }}
+							{% endif %}
+							{% if not intime and forloop.counter = 2 %}
+								{{ error_time }}
+							{% endif %}
+							{{ field.errors.as_text }}
+							
+						</div>
+					</div>
+					<br/>
+					<br/>
+				{% endfor %}
+				
+				<div class="fieldwrapper">	Add time </div>
+				<div class="errorwrapper"><input type="radio" id="add" name="addtype" value="1" required="required"></div></br></br>
+				<div class="fieldwrapper">	Reduce time	</div>
+				<div class="errorwrapper"><input type="radio" name="addtype" value="0" required="required"></div></br></br>
+				<div class="fieldwrapper">&nbsp;</div>
+				<div class="fieldwrapper">
+					<input type="hidden" id="taskid" name="taskid" value="{{currenttask.id}}"/>
+				<input type="submit" name="submit" value="Change time" />
+						</div>
+				
+			</form>
+			<br /><br />
+				<div class="time_change">
+				History: </div>
+				{% for w in workdays %}{% if w.time > 0 %}
+					<p class="time_history">{{w.day}}: <strong> {{w.time}} h </strong></p>
+					{% endif %}
+				{% endfor %}
+		<br />
+
+		{% endif %}
+		
+		{% for sprintstory in allStories %}	
+		
+		<div class="story_container">
+			
+			<div class="story_name_container">
+				{{ sprintstory.story.story_name }}
+			</div>
+		
+			<div class="story_content_container" >		
+		
+			{{ sprintstory.story.text }}
+			</div>
+			
+			
+			<div class="story_acceptance_test_container" >				
+				{{ sprintstory.story.test_text }}
+			</div>
+			{% if note_permission %}
+				
+				
+					{% for notification in allNotifications %}
+						{% if notification.story = sprintstory.story %}
+						{% if not notification.notification = "" %}						
+						<div class="story_content_container">
+							<p class="notes">{{notification.notification|linebreaksbr}}</p> 
+						</div>
+						{% endif %}
+						{% endif %}
+					{% endfor %}
+				
+			{% endif %}
+			<div class="story_sprintbacklog_tasks_background">
+				<table class=backlogtasktable>
+	   	
+		
+					<tr>
+						<td class="column_mytask">
+							Tasks
+						</td>
+						<td class="column_mytask">
+							Work done
+						</td>
+						<td class="column_mytask">
+							Work remaining
+						</td>
+					<!--	<td class="column_mytask">
+							Total task time
+						</td>-->
+						<td class="column_mytask">
+							Complete
+						</td>
+						
+						
+					</tr>
+				{% for task in allTasks%}
+				<!-- {% if task.status == 0 %}
+					<p> Ni taskov </p>
+				{% endif %} -->
+				{% if task.0.status == 1 %}
+					{% if task.0.story == sprintstory.story%}
+					
+					<tr>
+						<td class="column_mytask">
+							{{ task.0.text }}
+						</td>
+						<td class="column_mytask">
+						
+							
+							{% for k, v in work.items %}
+								{% if k = task.0.id %}
+								{{ v }}
+								{% if not v = "" %}
+								  &nbsp;h
+								{%	endif %}
+								{% endif %}
+							{% endfor %}
+							
+							<a href="/scrumko/mytask?id={{ task.0.id }}"> <img src="/static/images/edit.png" alt="yes" class="timeedit" height="17" width="17"></a>
+						</td>
+						<td class="column_mytask">
+			
+							<p class="dur" style="float: left; margin: 0px;"> {{ task.1 }} </p> &nbsp;h
+								<a href="javascript: void(0)" class="edit_remaining" id="#opener2" data-story="{{task.0.id}}" >
+							 <img src="/static/images/edit.png" alt="yes" class="timeedit" height="17" width="17">
+							 </a>
+						</td>
+						<!--<td class="column_mytask">
+							{{ task.2 }}
+						
+							 </td>-->
+						</td>
+						<td>
+
+							{% if task.0.status == 0 %}
+								Can not complete
+							{% elif task.0.status == 1 %}
+								<a href="?complete=1&task={{task.0.id}}" class="link">Complete</a> 
+								<!-- <a href="/scrumko/addtasktocompleted/{{ task.id }}" class="link" >Complete</a>  -->
+							{% elif task.0.status == 2 %}
+								Completed
+							{% elif task.0.status == 3 %}
+								Active	 
+							{% endif %}												
+						</td>	
+					</tr>			
+					{% endif %}
+				{% endif %}
+				{% endfor %}
+				</table>
+			</div>
+		</div>
+		<br />
+		{% endfor %}
+		
+		<div id="dialogremaining" title="Change remaining time">
+		  <form action="/scrumko/change_remaining/" method="post" id="estimate_change">{% csrf_token %}
+			<input type="hidden" id="taskid1" name="taskid1" />
+			<input type="text" id="duration" name="duration" style="float: left"/>
+			<input type="submit" id="submit2" value="Submit" style="float: left"/>
+		 
+		  </form>
+		   <p id="warning" ></p>
+		</div>
+		
+	
+{% endblock %}

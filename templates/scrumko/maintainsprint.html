@@ -1,0 +1,60 @@
+
+
+{% extends 'scrumko/main.html' %}
+{% load static %}
+
+{% block body_block %}
+		
+		<script type="text/javascript" src="{% static  'javascript/maintainsprint.js' %}" ></script>
+
+				
+        <h1>Sprint edit</h1>
+		{% if request.user.is_staff %} <!-- only admin can see this -->
+			<table class=planingtable>
+				<tr>
+						
+						<td>
+							Sprint start
+						</td>
+						<td>
+							Sprint end
+						</td>
+						<td>
+							Velocity
+						</td>
+						<td>
+							Edit
+						</td>
+						<td>
+							Delete
+						</td>
+			
+				</tr>
+				{% for c in current %}
+				<tr>
+					
+						<td>
+							{{ c.0.start_date }}
+							
+						</td>
+						<td>
+							{{ c.0.finish_date }}
+						</td>
+						<td>
+							{{ c.0.velocity }}
+						</td>	
+						<td>
+							{% if not c.1 %}
+								<a href="/scrumko/sprintedit/{{c.0.id}}/" ><img src="/static/images/edit.png" alt="yes" height="20" width="20"></a> 	
+							{% endif %}					
+						</td>	
+						<td>
+							{% if not c.1 %}
+								<a href="sprintdelete/{{c.0.id}}" class="target" ><img src="/static/images/delete.png" alt="yes" height="20" width="20"></a> 
+							{% endif %}	
+						</td>	
+				</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
+ {% endblock %}

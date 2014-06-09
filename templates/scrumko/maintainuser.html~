@@ -1,0 +1,85 @@
+{% extends 'scrumko/main.html' %}
+
+{% block body_block %}
+        <h1>Vzdrzevanje uporabniskih racunov</h1>
+		{% if request.user.is_superuser %} <!-- only admin can see this -->
+			<form id="user_form" method="post" action="/scrumko/maintainuser/"
+					enctype="multipart/form-data">
+			{% csrf_token %}
+			<table>
+				<tr>
+						<td class="userTableFIRST">
+							ID
+						</td>
+						<td class="userTableFIRST">
+							Uporabnisko ime
+						</td>
+						
+						<td class="userTableFIRST">
+							Email
+						</td>
+						<td class="userTableFIRST">
+							Geslo
+						</td>
+						<td class="userTableFIRST">
+							Superuser
+						</td>						
+						<td class="userTableFIRST">
+							Staff
+						</td>
+						<td class="userTableFIRST">
+							Uredi
+						</td>
+						<td class="userTableFIRST">
+							Izbrisi
+						</td>
+			
+				</tr>
+				{% for detail in user_detail %}
+				<tr>
+						<td class="userTableCenter">
+							{{ detail.id }}
+						</td>
+						<td class="userTable">
+							{{ detail.username }}
+						</td>
+						
+						<td class="userTable">
+							{{ detail.email }}
+						</td>
+						<td class="userTable">
+							*****
+						</td>	
+						<td class="userTableCenter">
+							{% if  detail.is_superuser  %}
+								<img src="/static/images/yes.png" alt="yes" height="15" width="15">
+							{% else %}
+								<img src="/static/images/no.png" alt="yes" height="15" width="15">
+							{% endif %}
+						</td>	
+						<td class="userTableCenter">
+							{% if  detail.is_staff  %}
+								<img src="/static/images/yes.png" alt="yes" height="15" width="15">
+							{% else %}
+								<img src="/static/images/no.png" alt="yes" height="15" width="15">
+							{% endif %}
+						</td>	
+						<td class="userTable">
+							<a href="edit"><img src="/static/images/edit.png" alt="edit" height="15" width="15">Uredi</a>						
+						</td>	
+						<td class="userTable">
+							
+						
+							<a href="edit"><img src="/static/images/delete.png" alt="edit" height="15" width="15">Izbrisi</a>	
+							
+						
+						</td>	
+				</tr>
+					<br/>
+					<br/>
+				{% endfor %}
+			</table>
+			
+			</form>
+			{% endif %}
+   {% endblock %}

@@ -1,0 +1,187 @@
+{% extends 'scrumko/main.html' %}
+{% load static %}
+
+{% block body_block %}
+
+	<script type="text/javascript" src="{% static  'javascript/sprintbacklog.js' %}" ></script>
+	
+	<h1> Sprint backlog </h1>   
+		
+		{% for sprintstory in allStories %}	
+		{% if  sprintstory.story.status == False %}
+		<!-- {% if  is_owner %}
+				{% if  sprintstory.story.status == False %}
+					<a href="/scrumko/addstorytofinished2/{{ sprintstory.story.id }}" class="addstorytosprint"><img src="/static/images/confirm.png" alt="yes" height="20" width="20"> Mark as realized story</a>
+					<a href=""><img src="/static/images/remove.png" alt="yes" height="20" width="20"> Discard story</a>
+				{% endif %}
+				{% if  sprintstory.story.status == True %}
+					<a href=""><img src="/static/images/yes.png" alt="yes" height="15" width="15"> Realized story</a>
+				{% endif %}
+			{% endif %} -->
+		
+		<div class="story_container">
+			
+			<div class="story_name_container">
+				{{ sprintstory.story.story_name }}
+			</div>
+			<div class="story_actions_container">
+				<div class="story_priority">
+					Priority: {{ sprintstory.story.priority }}
+				</div>
+				<div class="story_business">
+					Buisness value: {{ sprintstory.story.bussines_value }}
+				</div>
+				<div class="story_edit">
+					
+					{% if note_permission %}
+					<a href="javascript: void(0)" class="edit_note" id="#opener1" data-story="{{sprintstory.story.id}}"><img src="/static/images/note.png" alt="yes" height="20" width="20"></a>
+					 <p class="est" style="float: left; margin-top: 0;"></p> 
+					{% endif %}
+					{% if  is_scrum_master or is_owner%}
+					{% if not sprintstory.story.status %}
+						<!--<a href="/scrumko/storyedit/{{ sprintstory.story.id }}"><img src="/static/images/edit.png" alt="yes" height="20" width="20"></a> 	
+						<a href="/scrumko/storydelete/{{sprintstory.story.id}}" class="target" ><img src="/static/images/delete.png" alt="yes" height="20" width="20"></a> 		-->			
+					{% endif %}
+					{% endif %}
+					
+		
+				</div>
+				<div class="backlog_poker">
+					 	
+				</div>
+				
+				<div class="story_estimation">
+					<p style="float: left;  margin-top: 0;">Estimation: &nbsp;</p> <p class="est" style="float: left; margin-top: 0;">{{sprintstory.story.estimate}}</p> 
+					
+				
+				</div>
+				
+				<br />
+				
+			  
+			</div>
+		
+			<div class="story_content_container" >		
+		
+			{{ sprintstory.story.text }}
+			</div>
+			
+			
+			<div class="story_acceptance_test_container" >				
+				{{ sprintstory.story.test_text|linebreaksbr }} 
+			</div>
+			{% if note_permission %}
+				
+				
+					{% for notification in allNotifications %}
+						{% if notification.story = sprintstory.story %}
+						{% if not notification.notification = "" %}						
+						<div class="story_content_container">
+					
+					<p class=notes>{{notification.notification|linebreaksbr}}</p>
+						</div>
+						{% endif %}
+						{% endif %}
+					{% endfor %}
+				
+			{% endif %}
+			<div class="story_sprintbacklog_tasks_background">
+				<table class=backlogtasktable>
+	   	
+					<tr >
+						<td class="column_tasks">
+							Tasks
+						</td>
+						<td class="column_status">
+							Status
+						</td>
+						<td class="column_member">
+							Member
+						</td>
+						<td class="column_remaining">
+							Remaining
+						</td>
+						<td class="column_actions">
+							Actions
+						</td>
+					</tr>
+				
+				{% for task in allTasks%}
+					{% if task.0.story == sprintstory.story%}
+					<tr class="backlogtasktable_unassigned">
+						<td class="column_tasks {% if task.0.status == 0 %} backlogtasktable_unassigned {% elif task.0.status == 3 %} backlogtasktable_assigned {% elif task.0.status == 2 %} backlogtasktable_completed {% elif task.0.status == 1 %} backlogtasktable_active {% endif %}">
+							{{ task.0.text }}
+						</td>
+						<td class="column_status {% if task.0.status == 0 %} backlogtasktable_unassigned {% elif task.0.status == 3 %} backlogtasktable_assigned {% elif task.0.status == 2 %} backlogtasktable_completed {% elif task.0.status == 1 %} backlogtasktable_active {% endif %}">
+							{% if task.0.status == 0 %}								
+								<a href="?accept=1&task={{task.0.id}}">Accept task</a>
+							{% elif task.0.status == 1 %}
+								{% if request.user.id == task.0.worker.id %}
+									<a href="?release=1&task={{task.0.id}}">Release task</a>
+								{% else %}
+								
+								Assigned
+								{% endif %}
+							{% elif task.0.status == 2 %}
+								Completed
+							{% elif task.0.status == 3 %}
+								{% if request.user.id == task.0.worker.id %}
+								<a href="?accept=1&task={{task.0.id}}">Accept task</a>
+								<a href="?release=1&task={{task.0.id}}">Release task</a>
+								{% else %}
+								Pending
+								{% endif %}
+							{% endif %}
+						</td>
+						<td class="column_member {% if task.0.status == 0 %} backlogtasktable_unassigned {% elif task.0.status == 3 %} backlogtasktable_assigned {% elif task.0.status == 2 %} backlogtasktable_completed {% elif task.0.status == 1 %} backlogtasktable_active {% endif %}">
+							{{ task.0.worker }}
+						</td>
+						<td class="column_remaining {% if task.0.status == 0 %} backlogtasktable_unassigned {% elif task.0.status == 3 %} backlogtasktable_assigned {% elif task.0.status == 2 %} backlogtasktable_completed {% elif task.0.status == 1 %} backlogtasktable_active {% endif %}">
+							{{ task.1 }}
+						</td>
+						<td class="column_actions {% if task.0.status == 0 %} backlogtasktable_unassigned {% elif task.0.status == 3 %} backlogtasktable_assigned {% elif task.0.status == 2 %} backlogtasktable_completed {% elif task.0.status == 1 %} backlogtasktable_active {% endif %}">
+							{% if not is_owner %}
+							{% if task.0.status == 0 or task.0.status == 3 %}
+								<a href="/scrumko/taskedit/{{ task.0.id }}/"><img src="/static/images/edit.png" alt="yes" height="20" width="20"></a> 	
+								
+								<a href="/scrumko/taskdelete/{{ task.0.id }}/" class="target2" ><img src="/static/images/delete.png" alt="yes" height="20" width="20"></a> 					
+							{% endif %}	
+							{% endif %}
+						</td>
+					</tr>
+					{% endif %}
+				{% endfor %}
+				
+				</table>
+				{% if not is_owner %}
+					<a href="/scrumko/taskcreate/{{ sprintstory.story.id }}"> &nbsp;&nbsp;<img src="/static/images/add.png" alt="yes" height="15" width="15"/> &nbsp; Add new task</a> 					
+				{% endif %}
+			</div>
+		</div>
+		<br />	
+		{% endif %}
+		{% endfor %}
+	
+		<div id="dialog" title="Change estimate">
+		  <form action="/scrumko/change_estimation1/" method="post" id="estimate_change">{% csrf_token %}
+			<input type="hidden" id="storyid" name="storyid" />
+			<input type="text" id="estimation" name="estimation" style="float: left"/>
+			<input type="submit" id="submit" value="Submit" style="float: left"/>
+		  
+		  </form>
+		</div>
+		<div id="dialog_note" title="Add note">
+			<pre><textarea rows="9" cols="60" id="note" name="note" name="comment" form="add_note">
+				</textarea></pre>
+		  <form action="/scrumko/add_notification1/" method="post" id="add_note">{% csrf_token %}
+			<input type="hidden" id="storyid1" name="storyid1" />
+
+			
+		
+			<input type="submit" id="submit1" value="Submit" />
+		  
+		  </form>
+		  
+		</div>
+	
+{% endblock %}

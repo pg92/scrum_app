@@ -1,0 +1,459 @@
+
+body {
+	
+	text-align: left;
+	margin: 0;
+	background-color: #282828;
+	
+}
+
+*{
+	font-family: 'Open Sans', sans-serif;
+	color: #c9c9c9;
+}
+
+h1
+{
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 25px;
+	color: #4590ab;
+}
+
+input
+{
+	color: black;
+}
+
+select, textarea, option
+{
+	color: black;
+}
+
+
+
+/* page */
+
+.page
+{
+	margin: auto;
+	
+	
+	
+}
+
+.menulogo
+{
+	overflow: auto;
+	width: 1100px;
+	margin: auto;
+}
+
+.logo
+{
+	float: left;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 40px;
+	font-weight: 700;
+	color: white;	
+	
+}
+
+.menu
+{
+	float: right;
+	width: auto;
+	height: 40px;
+	
+}
+
+.menu ul {
+	list-style: none;
+	padding: 0px;
+	margin-left:auto;
+	
+}
+
+
+.menu li {
+	list-style: none;
+	padding: 0px;	
+	display: inline; 
+	
+}
+
+.menu a, .menu a:visited {
+	float: left;
+	padding: 0 20px 0 20px;
+	
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+	
+	font-weight: 300;
+	font-size: 19px;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.pagebody
+{
+	
+	margin: auto;
+	
+	width: 1100px;
+	
+	height: auto;
+	overflow-x:hidden;
+	overflow-y: hidden;
+}
+
+.mainwindow
+{
+	
+	
+	height: auto;
+	
+	
+	width: 70%;
+	float: left;
+	
+	
+}
+
+.sidemenu
+{	
+	height: auto;
+	width: 27%;
+	float: left;
+	
+	background-color: rgba(255, 255, 255, 0.1);
+	padding-left: 2%;
+}
+
+.headerhold, .bodyhold, .bodyhold2
+{
+	height: auto;
+	background-color: #3a3a3a;
+}
+
+.headerhold
+{
+	padding: 40px;
+	margin-top: 0px;
+
+}
+
+.bodyhold
+{
+	padding-top: 100px;
+	padding-bottom: 100px;
+	
+}
+.cpyright
+{
+	margin: auto;
+	width: 1100px;
+	
+	vertical-align: text-bottom;
+	text-align: center;
+}
+
+.gridmenu td
+{
+	background-color: rgba(255, 255, 255, 0.1);
+	
+	border-radius: 15px;
+	width: 170px;
+	height: 170px;
+}
+.gridmenu a
+{
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 15px;
+}
+
+.gridmenu img
+{
+	margin-top: 20px;
+}
+
+.gridmenu
+{
+	border-spacing: 50px 20px;
+	text-align: center;
+}
+
+.userbarhold
+{
+	padding: 5px;
+	margin-top: 0px;
+	
+	background-color: #282828;
+}
+
+.userbar
+{
+	overflow: auto;
+	width: 1100px;
+	margin: auto;
+	text-align: right;
+	padding: 0 50px 0 10px;
+	
+}
+
+
+#user
+{
+	width: 40px;
+	height: 40px;
+	border: solid;
+	border-width: 1px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-color: #666666;
+	
+	border-radius: 4px;
+	float: right;
+}
+
+#userdata
+{
+	margin: 15px 20px 5px 0;
+	float: right;
+	
+	
+}
+
+/* for second template */
+
+.menulogo2
+{
+	overflow: auto;
+	width: 500px;
+	margin: auto;
+
+}
+
+.pagebody2
+{
+	overflow: auto;
+	margin: auto;
+	
+	width: 500px;
+	height: auto;
+	
+	
+	border-radius: 15px;
+	
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logo2
+{
+	text-align: center;
+	
+	
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 40px;
+	font-weight: 700;
+	color: white;	
+}
+
+.bodyhold2
+{
+	padding-top: 5px;
+	padding-bottom: 100px;
+	
+}
+
+.loginfield
+{
+	width: 90%;
+	margin: 0 5% 0 5%;
+	
+	border-radius: 5px;
+	
+	
+	height: 22px;
+}
+
+#index
+{
+	width: 495px;
+	
+	text-align: center;
+	
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.mainwindow2
+{
+	height: auto;
+	
+	width: 100%;
+	float: left;
+	
+	text-align: center;
+	
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 20px;
+}
+
+.header2
+{
+	font-size: 30px;
+
+}
+.error
+{
+	font-size: 10px;	
+	color: red;
+	font-weight: normal;
+}
+
+/* style for div with information about succes adde something*/
+
+.succes
+{
+	margin: auto;
+	color: green;
+	background-color: #C6FCC0;
+	border: solid 1px;
+	border-color: green;
+	display: inline-block;
+
+	border-radius: 5px;
+	padding: 10px 30px 10px 30px;
+}
+
+.succes_hold
+{
+	text-align: center;
+}
+
+/* style for input fields on normal page */
+
+.mainwindow input, .mainwindow select
+{
+	
+	width: 200px;
+	margin: 0 20px 0 20px;
+	
+	border-radius: 5px;
+	height: 26px;
+}
+
+.mainwindow textarea
+{
+	
+	width: 200px;
+	margin: 0 20px 0 20px;
+	resize: none;
+	border-radius: 5px;
+	
+}
+
+/* style for wide form */
+.fieldwrapper2 input, .fieldwrapper2 select
+{
+	
+	width: 400px;
+	margin: 0 20px 0 20px;
+	
+	border-radius: 5px;
+	height: 26px;
+}
+
+.fieldwrapper2 textarea
+{
+	
+	width: 400px;
+	margin: 0 20px 0 20px;
+	resize: none;
+	border-radius: 5px;
+	
+}
+
+
+
+.mainwindow input[type="submit"]
+{
+	
+
+}
+
+.mainwindow select[multiple="multiple"]
+{
+	height: 300px;
+
+}
+
+.fieldwrapper, .errorwrapper
+{
+	float: left;
+	width: 30%;
+}
+
+.fieldwrapper2, .errorwrapper2
+{
+	float: left;
+	width: 55%;
+}
+
+.errorwrapper, .errorwrapper2
+{
+	color: red;
+}
+
+/* div hold one form line */
+.formpart
+{
+	width: 100%;
+	display: inline-block;
+}
+
+.userTable {
+	margin:5px;
+	padding:5px;
+	width:100%;
+	background-color: rgba(255, 255, 255, 0.1);
+	border:1px solid #000000;
+}
+.userTableFIRST {
+	margin:5px;
+	padding:5px;
+	width:100%;
+	text-align:center;
+	border:1px solid #000000;
+	background-color: rgba(255, 255, 255, 0.01);
+	font-weight:900;
+}
+.userTableCenter {
+	margin:5px;
+	padding:5px;
+	width:100%;
+	text-align:center;
+	border:1px solid #000000;
+	background-color: rgba(255, 255, 255, 0.1);
+	font-weight:900;
+}
+.projectTable {
+	margin:5px;
+	padding:5px;
+	
+	background-color: rgba(255, 255, 255, 0.1);
+	border:1px solid #000000;
+	table-layout: fixed;
+	width:700px;
+	
+}
+.projectTableFIRST {
+	margin:5px;
+	padding:5px;
+	width:100%;
+	text-align:center;
+	border:1px solid #000000;
+	background-color: rgba(255, 255, 255, 0.01);
+	font-weight:900;
+}
+
+

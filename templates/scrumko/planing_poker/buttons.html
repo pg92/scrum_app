@@ -1,0 +1,48 @@
+{% load static %}
+
+<div>
+	
+	
+	{% if estimates %}
+	
+	<p> Choose your estimate for current story.</p>
+	
+	<form action="" method="post" id="estimate_buttons">
+		<button type="sumbmit" name="estimate" value="0" > 0 </button>
+		<button type="sumbmit" name="estimate" value="0.5" > 0.5 </button>
+		<button type="sumbmit" name="estimate" value="1" > 1 </button>
+		<button type="sumbmit" name="estimate" value="1.5" > 1.5 </button>
+		<button type="sumbmit" name="estimate" value="2" > 2 </button>
+		<button type="sumbmit" name="estimate" value="3" > 3 </button>
+		<button type="sumbmit" name="estimate" value="5" > 5 </button>
+		<button type="sumbmit" name="estimate" value="8" > 8 </button>
+		<button type="sumbmit" name="estimate" value="13" > 13 </button>
+		<button type="sumbmit" name="estimate" value="20" > 20 </button>
+		<button type="sumbmit" name="estimate" value="40" > 40 </button>
+		<button type="sumbmit" name="estimate" value="Pass" > Pass </button>
+	</form>
+	{% endif %}
+	
+	<br/><br/>
+	{% if scrummaster %}
+		
+		{% if activeround %}
+			{% if enableend %}
+				<button type="button" id="endround">End round</button>
+			{% endif %}
+		{% else %}
+			<button type="button" id="startround">Start new round</button>
+			
+			<form action="/scrumko/poker_uselast/" method="post" style="float: left;">
+				<input type="submit" id="useestimate" value="Use estimate"/>{% csrf_token %}
+			</form>
+			
+		{% endif %}
+		
+			
+	{% endif %}
+	
+	
+	
+		
+</div>
