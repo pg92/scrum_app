@@ -137,7 +137,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
-#    'django.core.context_processors.request',
+    'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
 )
 INSTALLED_APPS = (
@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 	'scrumko',
+	'django_jenkins',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -184,3 +185,10 @@ LOGGING = {
         },
     }
 }
+
+JENKINS_TASKS = (
+        'django_jenkins.tasks.with_coverage',
+        #'django_jenkins.tasks.django_tests',
+        #'django_jenkins.tasks.run_pep8',
+        'django_jenkins.tasks.run_pyflakes',
+    )
