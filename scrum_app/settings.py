@@ -151,8 +151,7 @@ INSTALLED_APPS = (
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-	'scrumko',
-	'django_jenkins',
+	'scrumko',	
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -186,9 +185,4 @@ LOGGING = {
     }
 }
 
-JENKINS_TASKS = (
-        'django_jenkins.tasks.with_coverage',
-        #'django_jenkins.tasks.django_tests',
-        #'django_jenkins.tasks.run_pep8',
-        #'django_jenkins.tasks.run_pyflakes',
-    )
+
